@@ -1,14 +1,30 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {store} from '../redux/store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-class Deincrement extends Component {
+class Decrement extends Component {
+  substract = async () => {
+    let check = await AsyncStorage.getItem('Counter_Key');
+    if (check >= 1) {
+      try {
+        let value = await AsyncStorage.getItem('Counter_Key');
+        value = JSON.parse(value);
+        value = value - 1;
+        console.log('inside increment', value);
+        await AsyncStorage.setItem('Counter_Key', value.toString());
+        let val2 = await AsyncStorage.getItem('Counter_Key');
+        this.props.setState(val2);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
   render() {
     return (
-      <View style={{marginLeft: 20}}>
+      <View style={{marginLeft: 20, marginRight: 20}}>
         <TouchableOpacity
           onPress={() => {
-            store.dispatch({type: 'counter/decremented'});
+            this.substract();
           }}
           style={styles.buttonView}>
           <Text style={styles.buttonText}>Deincrement</Text>
@@ -32,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Deincrement;
+export default Decrement;

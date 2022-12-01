@@ -9,11 +9,13 @@ class UserDetails extends Component {
       userDetails: null,
     };
   }
+
   componentDidMount() {
-    const {id} = this.props.route.params;
     let self = this;
     axios
-      .get(`https://jsonplaceholder.typicode.com/users/${id}`)
+      .get(
+        `https://jsonplaceholder.typicode.com/users/${this.props.route.params.id}`,
+      )
       .then(function (response) {
         console.log('data', response.data);
         self.setState({userDetails: response.data});

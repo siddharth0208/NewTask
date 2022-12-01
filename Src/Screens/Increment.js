@@ -1,13 +1,29 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {store} from '../redux/store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 class Increment extends Component {
+  add = async () => {
+    let check = await AsyncStorage.getItem('Counter_Key');
+
+    try {
+      let value = await AsyncStorage.getItem('Counter_Key');
+      value = JSON.parse(value);
+      value = value + 1;
+      console.log('inside increment', value);
+      await AsyncStorage.setItem('Counter_Key', value.toString());
+      let val2 = await AsyncStorage.getItem('Counter_Key');
+      this.props.setState(val2);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   render() {
     return (
-      <View style={{marginLeft: 20}}>
+      <View style={{marginLeft: 20, marginRight: 20}}>
         <TouchableOpacity
           onPress={() => {
-            store.dispatch({type: 'counter/incremented'});
+            this.add();
           }}
           style={styles.buttonView}>
           <Text style={styles.buttonText}>Increment</Text>
@@ -27,7 +43,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     alignSelf: 'center',
-    padding: 6,
+    padding: 5,
   },
 });
 

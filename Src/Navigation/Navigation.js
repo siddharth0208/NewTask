@@ -5,6 +5,7 @@ import UserList from '../Screens/UserList';
 import UserDetails from '../Screens/UserDetails';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 const Stack = createNativeStackNavigator();
 
 class Navigation extends Component {

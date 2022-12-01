@@ -8,18 +8,7 @@ export default function counterReducer(state = {value: 0, value2: 0}, action) {
       } else {
         return {...state};
       }
-    case 'counter2/incremented':
-      return {...state, value2: state.value2 + 1};
-    case 'counter2/decremented':
-      if (state.value2 !== 0) {
-        return {...state, value2: state.value2 - 1};
-      } else {
-        return {
-          ...state,
-        };
-      }
-    case 'getUserList':
-      return {...state, userList: state.value + 1};
+
     default:
       return state;
   }

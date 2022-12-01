@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {store} from '../redux/store';
-import {connect} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class Counter extends Component {
   render() {
     return (
       <View style={styles.titleView}>
-        <Text style={styles.titleText}>Counter -{this.props.value}</Text>
+        <Text style={styles.titleText}>Counter -{this.props.count}</Text>
       </View>
     );
   }
@@ -24,9 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = function (state) {
-  console.log('counter1 state', state);
-  return {value: state.value};
-};
-
-export default connect(mapStateToProps)(Counter);
+export default Counter;

@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 
 import axios from 'axios';
 import UserComponent from '../Component/UserComponent';
@@ -39,18 +32,19 @@ class UserList extends Component {
         <FlatList
           scrollEnabled={true}
           data={this.state.user}
-          renderItem={item => {
+          renderItem={({item}) => {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('userDetails', {
-                    id: item.item.id,
+                  this.props.navigation.navigate('Details', {
+                    id: item.id,
                   });
                 }}>
                 <UserComponent
-                  id={item.item.id}
-                  name={item.item.name}
-                  email={item.item.email}
+                  id={item.id}
+                  name={item.name}
+                  email={item.email}
+                  navigation={this.props.navigation}
                 />
               </TouchableOpacity>
             );
