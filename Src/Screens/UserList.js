@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
-
+import {connect} from 'react-redux';
 import axios from 'axios';
 import UserComponent from '../Component/UserComponent';
+import {getUserList} from '../redux/actions';
 
 class UserList extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class UserList extends Component {
     };
   }
   componentDidMount() {
-    let self = this;
+    this.props.getUserList();
+    /*  let self = this;
     axios
       .get('https://jsonplaceholder.typicode.com/users')
       .then(function (response) {
@@ -22,7 +24,7 @@ class UserList extends Component {
       })
       .catch(function (error) {
         console.log(error);
-      });
+      }); */
   }
 
   render() {
@@ -31,7 +33,7 @@ class UserList extends Component {
         <Text style={styles.titleText}>Users -</Text>
         <FlatList
           scrollEnabled={true}
-          data={this.state.user}
+          data={this.props?.userList}
           renderItem={({item}) => {
             return (
               <TouchableOpacity
@@ -44,7 +46,6 @@ class UserList extends Component {
                   id={item.id}
                   name={item.name}
                   email={item.email}
-                  navigation={this.props.navigation}
                 />
               </TouchableOpacity>
             );
@@ -57,10 +58,13 @@ class UserList extends Component {
 }
 const styles = StyleSheet.create({
   topView: {
-    marginTop: 20,
-    marginLeft: 15,
+    // marginTop: 20,
+    // marginLeft: 15,
     flex: 1,
-    marginBottom: 10,
+    // marginBottom: 10,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   titleText: {
     fontSize: 20,
@@ -68,4 +72,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-export default UserList;
+
+const mapStateToProps = state => {
+  return {
+    userList: state.userReducer.userList,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getUserList: () => dispatch(getUserList()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);

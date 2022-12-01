@@ -1,57 +1,41 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import axios from 'axios';
+import {connect} from 'react-redux';
+import {getUserDetails} from '../redux/actions';
 
 class UserDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userDetails: null,
-    };
-  }
-
   componentDidMount() {
-    let self = this;
-    axios
-      .get(
-        `https://jsonplaceholder.typicode.com/users/${this.props.route.params.id}`,
-      )
-      .then(function (response) {
-        console.log('data', response.data);
-        self.setState({userDetails: response.data});
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    this.props.getUserDetails(this.props.route.params.id);
   }
 
   render() {
+    console.log('userDetails', this.props.userDetails);
     return (
       <View style={styles.topView}>
         <Text style={styles.titleText}>User Details</Text>
         <Text style={styles.detailsText}>
-          Id - {this.state.userDetails?.id}
+          Id - {this.props.userDetails?.id}
         </Text>
         <Text style={styles.detailsText}>
-          Name - {this.state.userDetails?.name}
+          Name - {this.props.userDetails?.name}
         </Text>
         <Text style={styles.detailsText}>
-          Email - {this.state.userDetails?.email}
+          Email - {this.props.userDetails?.email}
         </Text>
         <Text style={styles.detailsText}>
-          Username - {this.state.userDetails?.username}
+          Username - {this.props.userDetails?.username}
         </Text>
         <Text style={styles.detailsText}>
-          Phone - {this.state.userDetails?.phone}
+          Phone - {this.props.userDetails?.phone}
         </Text>
         <Text style={styles.detailsText}>
-          Website - {this.state.userDetails?.website}
+          Website - {this.props.userDetails?.website}
         </Text>
         <Text style={styles.detailsText}>
-          Address - {this.state.userDetails?.address?.street}
+          Address -{this.props.userDetails?.address}
         </Text>
         <Text style={styles.detailsText}>
-          Zipcode - {this.state.userDetails?.address?.zipcode}
+          Zipcode - {this.props.userDetails?.zipcode}
         </Text>
       </View>
     );
@@ -72,4 +56,15 @@ const styles = StyleSheet.create({
     marginVertical: 7,
   },
 });
-export default UserDetails;
+const mapStateToProps = state => {
+  return {
+    userDetails: state.userReducer.userDetails,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getUserDetails: () => dispatch(getUserDetails()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);

@@ -8,7 +8,9 @@ import UserList from './Src/Screens/UserList';
 import UserDetails from './Src/Screens/UserDetails';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
+import {Provider} from 'react-redux';
+import {configureStore} from './Src/redux/store';
+// import {configureStore} from './Src/redux/store';
 const Stack = createNativeStackNavigator();
 
 class App extends Component {
@@ -104,14 +106,46 @@ class App extends Component {
       this.setState({count: value});
     };
     return (
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={UserList} />
-          <Stack.Screen name="Details" component={UserDetails} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Provider store={configureStore}>
+        <Counter count={this.state.count} />
+        <Increment setState={setValue} />
+        <Decrement setState={setValue} />
+        <View>
+          <View style={styles.titleView}>
+            <Text style={styles.titleText}>CounterV2 -{this.state.count2}</Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => {
+              this.Increment();
+            }}
+            style={styles.buttonView}>
+            <Text style={styles.buttonText}>Increment</Text>
+          </TouchableOpacity>
+          {this.state.count2 > 0 ? (
+            <TouchableOpacity
+              onPress={() => {
+                this.Deincrement();
+              }}
+              style={styles.buttonView}>
+              <Text style={styles.buttonText}>Deincrement</Text>
+            </TouchableOpacity>
+          ) : (
+            []
+          )}
+        </View>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Home"
+            screenOptions={{
+              headerShown: false,
+            }}>
+            <Stack.Screen name="Home" component={UserList} />
+            <Stack.Screen name="Details" component={UserDetails} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
 
-      /*  <Counter count={this.state.count} />
+      /* <Counter count={this.state.count} />
         <Increment setState={setValue} />
         <Decrement setState={setValue} />
         <View>

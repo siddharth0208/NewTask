@@ -1,24 +1,9 @@
-import {createStore} from 'redux';
-import counterReducer from './reducer';
-export let store = createStore(counterReducer);
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import userReducer from './reducer';
+import thunk from 'redux-thunk';
 
-//Redux persist code
-/* import {createStore} from 'redux';
-import {persistStore, persistReducer} from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+const rootReducer = combineReducers({
+  userReducer: userReducer,
+});
 
-import counterReducer from './reducer';
-
-const persistConfig = {
-  key: 'root',
-  storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, counterReducer);
-
-export default () => {
-  let store = createStore(persistedReducer);
-  let persistor = persistStore(store);
-  return {store, persistor};
-};
- */
+export const configureStore = createStore(rootReducer, applyMiddleware(thunk));

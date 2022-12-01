@@ -1,0 +1,4 @@
+export const GET_USER_LIST = 'GET_USER_LIST';
+export const GET_USER_DETAILS = 'GET_USER_DETAILS';
+export const USER_LIST_ERROR = 'GET_USER_DETAILS';
+export const USER_DETAILS_ERROR = 'GET_USER_DETAILS';
