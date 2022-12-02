@@ -10,7 +10,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Provider} from 'react-redux';
 import {configureStore} from './Src/redux/store';
-// import {configureStore} from './Src/redux/store';
+
 const Stack = createNativeStackNavigator();
 
 class App extends Component {
@@ -107,7 +107,7 @@ class App extends Component {
     };
     return (
       <Provider store={configureStore}>
-        <Counter count={this.state.count} />
+        {/*  <Counter count={this.state.count} />
         <Increment setState={setValue} />
         <Decrement setState={setValue} />
         <View>
@@ -132,7 +132,7 @@ class App extends Component {
           ) : (
             []
           )}
-        </View>
+        </View> */}
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="Home"
@@ -144,33 +144,6 @@ class App extends Component {
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
-
-      /* <Counter count={this.state.count} />
-        <Increment setState={setValue} />
-        <Decrement setState={setValue} />
-        <View>
-          <View style={styles.titleView}>
-            <Text style={styles.titleText}>CounterV2 -{this.state.count2}</Text>
-          </View>
-          <TouchableOpacity
-            onPress={() => {
-              this.Increment();
-            }}
-            style={styles.buttonView}>
-            <Text style={styles.buttonText}>Increment</Text>
-          </TouchableOpacity>
-          {this.state.count2 > 0 ? (
-            <TouchableOpacity
-              onPress={() => {
-                this.Deincrement();
-              }}
-              style={styles.buttonView}>
-              <Text style={styles.buttonText}>Deincrement</Text>
-            </TouchableOpacity>
-          ) : (
-            []
-          )}
-        </View> */
     );
   }
 }

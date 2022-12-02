@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   userList: [],
-  userDetails: [],
+  userDetails: {},
 };
 
 const userReducer = (state = initialState, action) => {
@@ -20,7 +20,7 @@ const userReducer = (state = initialState, action) => {
     case GET_USER_DETAILS:
       return {
         ...state,
-        userDetails: action.data,
+        userDetails: action.data.data,
       };
     case USER_LIST_ERROR:
       return {

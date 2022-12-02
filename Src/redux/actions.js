@@ -10,7 +10,7 @@ export const getUserList = () => {
     axios
       .get(`https://jsonplaceholder.typicode.com/users`)
       .then(res => {
-        console.log('calledddd.........', res);
+        // console.log('calledddd.........', res);
         dispatch({
           type: GET_USER_LIST,
           data: res.data,
@@ -23,16 +23,18 @@ export const getUserList = () => {
 };
 export const getUserDetails = id => {
   return dispatch => {
+    const url = `https://jsonplaceholder.typicode.com/users/${id}`;
     axios
-      .get(`https://jsonplaceholder.typicode.com/users/${id}`)
+      .get(url)
       .then(res => {
-        console.log('response', res);
+        console.log('UserDetails response............', res.data);
         dispatch({
           type: GET_USER_DETAILS,
-          data: res.data,
+          data: res,
         });
       })
       .catch(e => {
+        console.log('error........', e, url);
         dispatch({type: USER_DETAILS_ERROR});
       });
   };

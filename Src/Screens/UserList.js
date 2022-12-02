@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  SafeAreaView,
+  Alert,
+} from 'react-native';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import UserComponent from '../Component/UserComponent';
@@ -14,27 +22,17 @@ class UserList extends Component {
   }
   componentDidMount() {
     this.props.getUserList();
-    /*  let self = this;
-    axios
-      .get('https://jsonplaceholder.typicode.com/users')
-      .then(function (response) {
-        console.log('data', response.data);
-        self.setState({user: response.data});
-        console.log('user', self.state.user);
-      })
-      .catch(function (error) {
-        console.log(error);
-      }); */
   }
 
   render() {
     return (
-      <View style={styles.topView}>
+      <SafeAreaView style={styles.topView}>
         <Text style={styles.titleText}>Users -</Text>
         <FlatList
           scrollEnabled={true}
           data={this.props?.userList}
           renderItem={({item}) => {
+            console.log('item.id', item.id);
             return (
               <TouchableOpacity
                 onPress={() => {
@@ -52,16 +50,13 @@ class UserList extends Component {
           }}
           keyExtractor={item => item.id}
         />
-      </View>
+      </SafeAreaView>
     );
   }
 }
 const styles = StyleSheet.create({
   topView: {
-    // marginTop: 20,
-    // marginLeft: 15,
     flex: 1,
-    // marginBottom: 10,
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
