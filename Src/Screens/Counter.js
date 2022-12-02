@@ -13,13 +13,13 @@ class Counter extends Component {
 }
 const styles = StyleSheet.create({
   titleView: {
-    marginTop: 23,
-    marginLeft: 20,
+    marginTop: 50,
   },
   titleText: {
     fontSize: 25,
     fontWeight: 'bold',
     color: 'black',
+    textAlign: 'center',
   },
 });
 

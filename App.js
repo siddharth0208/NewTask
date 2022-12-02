@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Counter from './Src/Screens/Counter';
 import Increment from './Src/Screens/Increment';
@@ -107,7 +113,7 @@ class App extends Component {
     };
     return (
       <Provider store={configureStore}>
-        {/*  <Counter count={this.state.count} />
+        <Counter count={this.state.count} />
         <Increment setState={setValue} />
         <Decrement setState={setValue} />
         <View>
@@ -132,7 +138,7 @@ class App extends Component {
           ) : (
             []
           )}
-        </View> */}
+        </View>
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="Home"
@@ -150,13 +156,13 @@ class App extends Component {
 
 const styles = StyleSheet.create({
   titleView: {
-    marginTop: 23,
-    alignSelf: 'center',
+    marginTop: 20,
   },
   titleText: {
     fontSize: 25,
     fontWeight: 'bold',
     color: 'black',
+    textAlign: 'center',
   },
   buttonView: {
     marginTop: 20,
